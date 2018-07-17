@@ -54,9 +54,12 @@ export class RegisterComponent implements OnInit {
         }else{
           this.messageClass='alert alert-success';
           this.message=data.message;
-          setTimeout(()=>{
-              this.router.navigate(['/login'])
-          },2000)
+          this.authService.sendMail(user).subscribe(data=>{
+            console.log(data);
+          })
+          // setTimeout(()=>{
+          //     this.router.navigate(['/login'])
+          // },2000)
         }
       })
   }

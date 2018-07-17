@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build":"cd client && ng build --prod"
+    "build": "cd client && ng build --prod"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.1.5"
+    "mongoose": "^5.1.5",
+    "nodemailer": "^4.6.7"
   }
 }

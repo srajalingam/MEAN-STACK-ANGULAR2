@@ -2,7 +2,10 @@ const User = require('../models/user');
 
 const jwt = require('jsonwebtoken');
 
+const nodemailer = require('nodemailer');
+
 const confiq = require ('../config/database');
+const path =require('path');
 
 module.exports=(router)=>{
 
@@ -108,6 +111,40 @@ module.exports=(router)=>{
        }
     })
 
+    router.post('/send',(req,res)=>{
+        rand=Math.floor((Math.random() * 100) + 54);
+        link="http://"+req.get('host')+"/authentication/verify?id="+rand;
+        const emailId=req.body.email;
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'rajaDemo123@gmail.com',
+            pass: 'rajaDemo@123'
+          }
+        });
+        
+        var mailOptions = {
+          from: 'rajaDemo123@gmail.com',
+          to: emailId,
+          subject: 'Please confirm your Email account',
+          html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+    })
+
+    router.get('/verify',(req,res)=>{
+        link="http://"+req.get('host')+"login";
+        //link="http://localhost:4200/login";
+        res.end("<h1>Email is been Successfully verified </h1><br><a href="+link+">Click here to login</a>");
+    })
+
     router.use((req,res,next)=>{
        const token= req.headers['authorization'];
        console.log(token);
@@ -158,5 +195,8 @@ module.exports=(router)=>{
             })
         }
     })
+
+
+   
     return router;
 }
