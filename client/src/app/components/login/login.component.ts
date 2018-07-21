@@ -41,7 +41,13 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(user).subscribe((data)=>{
+      console.log(data)
       if(!data.success){
+        if(data.user.activated==0){
+          this.authService.sendMail(data.user).subscribe(data=>{
+            console.log(data);
+          })
+        }
         this.messageClass="alert alert-danger";
         this.message=data.message;
       }else{

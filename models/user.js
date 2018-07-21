@@ -31,7 +31,8 @@ const emailValidators=[
 const userSchema = new Schema({
   email:{type:String,required:true,unique:true,lowercase:true,validate:emailValidators},
   username:{type:String,required:true,unique:true,lowercase:true},
-  password:{type:String,required:true}
+  password:{type:String,required:true},
+  activated:{type:Number,default:0}
 });
 
 userSchema.pre('save',function(next){

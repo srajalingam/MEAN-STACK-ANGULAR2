@@ -101,8 +101,13 @@ module.exports=(router)=>{
                             if(!validPassword){
                                 res.json({success:false,message:'Password Invalid'});
                             }else{
-                                const token = jwt.sign({userId:user._id},confiq.secret,{expiresIn:'24h'});
-                                res.json({success:true,message:'Success',token,user:{username:user.username}});
+                                console.log(user.activated)
+                                if(user.activated==1){
+                                    const token = jwt.sign({userId:user._id},confiq.secret,{expiresIn:'24h'});
+                                    res.json({success:true,message:'Success',token,user:{username:user.username}});
+                                }else if(user.activated==0){
+                                    res.json({success:false,message:'User not Verified Plese verify your account check your mail',user:user});
+                                }
                             }
                         }
                    }
@@ -112,8 +117,8 @@ module.exports=(router)=>{
     })
 
     router.post('/send',(req,res)=>{
-        rand=Math.floor((Math.random() * 100) + 54);
-        link="http://"+req.get('host')+"/authentication/verify?id="+rand;
+        //rand=Math.floor((Math.random() * 100) + 54);
+        link="http://"+req.get('host')+"/authentication/verify?user="+req.body.username;
         const emailId=req.body.email;
         var transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -140,7 +145,24 @@ module.exports=(router)=>{
     })
 
     router.get('/verify',(req,res)=>{
-        link="http://"+req.get('host')+"login";
+        link="http://"+req.get('host')+"/login";
+       const query=req.query.user;
+       User.findOne({username:query},(err,user)=>{
+           console.log(user)
+            if(err){
+                res.json({success:false,message:'Something went wrong'})
+            }else{
+                if(!user){
+                    res.json({success:false,message:'Username not found'})
+                }else{
+                    User.findOneAndUpdate({username:query}, {$set:{activated:1}},function(err){
+                        if(err){
+                            console.log("Something wrong when updating data!");
+                        }
+                    });
+                }
+            }
+        })
         //link="http://localhost:4200/login";
         res.end("<h1>Email is been Successfully verified </h1><br><a href="+link+">Click here to login</a>");
     })
