@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import{AppRoutingModule} from './app-routing.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -13,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import {AuthService} from './services/auth.service';
 import {BlogService} from './services/blog.service';
+import{ChartService} from './services/chart.service';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {FlashMessagesModule } from 'angular2-flash-messages';
@@ -23,6 +25,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 
 
@@ -38,7 +41,8 @@ import { PublicProfileComponent } from './components/public-profile/public-profi
     BlogComponent,
     EditBlogComponent,
     DeleteBlogComponent,
-    PublicProfileComponent
+    PublicProfileComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +50,10 @@ import { PublicProfileComponent } from './components/public-profile/public-profi
     AppRoutingModule,
     HttpModule,
     FlashMessagesModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ],
-  providers: [AuthService,FlashMessagesService,AuthGuard,NotAuthGuard,BlogService],
+  providers: [AuthService,FlashMessagesService,AuthGuard,NotAuthGuard,BlogService,ChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

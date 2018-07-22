@@ -37,8 +37,6 @@ export class AuthService {
     return this.http.get(this.domain + '/authentication/checkUsername/'+username).map(res=>res.json());
   }
   checkEmail(email){
-    debugger;
-    console.log(this.domain)
     return this.http.get(this.domain + '/authentication/checkEmail/'+email).map(res=>res.json());
   }
   login(user){
