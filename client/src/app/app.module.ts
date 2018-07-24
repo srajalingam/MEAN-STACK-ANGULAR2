@@ -15,6 +15,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {AuthService} from './services/auth.service';
 import {BlogService} from './services/blog.service';
 import{ChartService} from './services/chart.service';
+import {ChatService} from './services/chat.service';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {FlashMessagesModule } from 'angular2-flash-messages';
@@ -26,6 +27,7 @@ import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 
@@ -42,7 +44,8 @@ import { ChartComponent } from './components/chart/chart.component';
     EditBlogComponent,
     DeleteBlogComponent,
     PublicProfileComponent,
-    ChartComponent
+    ChartComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { ChartComponent } from './components/chart/chart.component';
     FormsModule,
     NgxChartsModule
   ],
-  providers: [AuthService,FlashMessagesService,AuthGuard,NotAuthGuard,BlogService,ChartService],
+  providers: [AuthService,FlashMessagesService,AuthGuard,NotAuthGuard,BlogService,ChartService,ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

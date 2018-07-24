@@ -15,6 +15,8 @@ import {PublicProfileComponent} from './components/public-profile/public-profile
 
 import {BlogComponent} from './components/blog/blog.component';
 
+import {ChatComponent} from './components/chat/chat.component';
+
 import {EditBlogComponent} from './components/edit-blog/edit-blog.component';
 
 import {DeleteBlogComponent} from './components/blog/delete-blog/delete-blog.component';
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
   {path:'login',component:LoginComponent,canActivate:[NotAuthGuard] },
   {path:'profile',component:ProfileComponent,canActivate:[AuthGuard]},
   {path:'blog',component:BlogComponent},
+  {path:'chat',component:ChatComponent},
   {path:'edit-blog/:id',component:EditBlogComponent,canActivate:[AuthGuard]},
   {path:'delete-blog/:id',component:DeleteBlogComponent,canActivate:[AuthGuard]},
   {path:'user/:username',component:PublicProfileComponent,canActivate:[AuthGuard]},

@@ -6,6 +6,12 @@ const app = express();
 
 var router =express.Router();
 
+//for socket i am creating a server lie below
+
+const http = require('http').Server(app);
+
+const io = require('socket.io')(http);
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
@@ -33,6 +39,22 @@ mongoose.connect(config.uri,(err)=>{
     }
 });
 
+io.on('connection', (socket) => {
+
+    console.log('user connected');
+
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+    });
+
+    socket.on('add-message', (message) => {
+        io.emit('message', { type: 'new-message', text: message });
+        // Function above that stores the message in the database
+        console.log(message)
+    });
+
+});
+
 app.use(cors({
     origin:'http://localhost:4200'
 }))
@@ -49,6 +71,6 @@ app.get('*',(req,res)=>{
 })
 
 
-app.listen(port,()=>{
+http.listen(port,()=>{
     console.log('Listening on port'+ port)
 })
